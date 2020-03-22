@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import GoogleMaps from './components/GoogleMaps'
+
+const markers = [
+    {
+        lat: -6.235502,
+        lng: 106.843645
+    },
+    {
+        lat: -6.599622,
+        lng: 106.825192
+    },
+    {
+        lat: -6.993897,
+        lng: 110.389839
+    },
+    {
+        lat: 1.491601,
+        lng: 124.901432
+    }
+]
+
+export default class extends React.Component {
+    render() {
+        return (
+            <GoogleMaps
+                isMarkerShown
+                markers = {markers}
+            />
+        )
+    }
 }
-
-export default App;
