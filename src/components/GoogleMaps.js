@@ -46,7 +46,7 @@ const MapWithAMarker = compose(
 )(props => {
   return (
     <GoogleMap
-        defaultZoom = {5.125}
+        defaultZoom = {4}
         defaultCenter = {{
             lat: -0.6003441,
             lng: 119.9029807

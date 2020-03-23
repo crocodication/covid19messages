@@ -6,6 +6,16 @@ const sampleInstagramContent = `<blockquote class="instagram-media" data-instgrm
 
 const markers = [
     {
+        lat: 1.420203,
+        lng: 99.549858,
+        content: sampleInstagramContent
+    },
+    {
+        lat: -0.603293,
+        lng: 109.944075,
+        content: sampleInstagramContent
+    },
+    {
         lat: -6.235502,
         lng: 106.843645,
         content: sampleInstagramContent
@@ -23,6 +33,16 @@ const markers = [
     {
         lat: 1.491601,
         lng: 124.901432,
+        content: sampleInstagramContent
+    },
+    {
+        lat: -3.085423,
+        lng: 133.124487,
+        content: sampleInstagramContent
+    },
+    {
+        lat: -5.263199,
+        lng: 119.419057,
         content: sampleInstagramContent
     }
 ]
