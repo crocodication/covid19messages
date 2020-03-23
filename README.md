@@ -12,7 +12,7 @@ untuk keperluan penyampaian pesan agar lebih terpusat di satu tempat semua Warga
 
 saya niatkan inisiatif ini dari KAMI BERSAMA (**WARGA INDONESIA & DUNIA**) untuk **semua Warga Indonesia & Dunia**
 
-#### Terima Kasih!
+#### InsyaAllah Kami Akan Melewati Ini Bersama, Terima Kasih!
 
 
 
@@ -30,4 +30,4 @@ the purpose is for delivering messages from around the world in one stop media,
 
 I intend this initiative from US TOGETHER (**PEOPLE IN INDONESIA & AROUND THE WORLD**) for all **people in Indonesia & around the world**
 
-#### Thank You!
+#### InsyaAllah We Will Through This Together, Thank You!
