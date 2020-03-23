@@ -4,7 +4,17 @@ import GoogleMaps from './components/GoogleMaps'
 
 import { markers } from './refs/sampleDatas'
 
+import TopLeftBar from './components/TopLeftBar'
+
 export default class extends React.Component {
+    state = {
+        inputValue: '',
+        isShowSubmitModal: false,
+        isSubmitting: false
+    }
+
+    handleInputChange = (event) => this.setState({inputValue: event.target.value})
+
     render() {
         return (
             <div
@@ -18,101 +28,106 @@ export default class extends React.Component {
                     isMarkerShown
                     markers = {markers}
                 />
+                
+                <TopLeftBar
+                    onPressSubmit = {() => this.setState({isShowSubmitModal: true})}
+                />
 
-                <div
-                    style = {{
-                        display: 'flex',
-                        left: 0,
-                        position: 'fixed',
-                        top: 0
-                    }}
-                >
-                    <div
-                        style = {{
-                            backgroundColor: 'steelblue',
-                            border: '5px solid white',
-                            borderBottomRightRadius: 20,
-                            marginRight: 60,
-                            maxWidth: 600,
-                            padding: 20
-                        }}
-                    >
-                        <div
-                            style = {{
-                                alignItems: 'flex-end',
-                                display: 'flex'
-                            }}
-                        >
-                            <h1
-                                style = {{
-                                    color: 'white'
-                                }}
-                            >
-                                23756&nbsp;
-                            </h1>
-
-                            <h5
-                                style = {{
-                                    color: 'white'
-                                }}
-                            >
-                                orang telah menyampaikan pesannya terhadap epidemi wabah COVID-19
-                            </h5>
-                        </div>
-
-                        <h5
-                            style = {{
-                                color: 'white',
-                                marginTop: 10
-                            }}
-                        >
-                            Bersatu dengan kami menyuarakan doa dan harapan yang baik bersama kita lewati kondisi saat ini
-                        </h5>
-
+                {
+                    this.state.isShowSubmitModal ?
                         <div
                             style = {{
                                 alignItems: 'center',
+                                bottom: 0,
+                                left: 0,
                                 display: 'flex',
-                                justifyContent: 'space-between',
-                                marginTop: 20
+                                justifyContent: 'center',
+                                position: 'fixed',
+                                right: 0,
+                                top: 0
                             }}
                         >
-                            <h4
+                            <div
+                                onClick = {() => this.setState({isShowSubmitModal: false})}
                                 style = {{
-                                    color: 'gold',
-                                    marginRight: 10
+                                    backgroundColor: 'rgba(0,0,0,0.8)',
+                                    bottom: 0,
+                                    left: 0,
+                                    position: 'absolute',
+                                    right: 0,
+                                    top: 0
                                 }}
-                            >
-                                Dari Kita Bersama Untuk Kita Bersama
-                            </h4>
+                            />
 
                             <div
                                 style = {{
-                                    border: '3px solid white',
-                                    borderRadius: 7,
-                                    padding: 10
+                                    backgroundColor: 'white',
+                                    borderRadius: 10,
+                                    padding: 20,
+                                    width: 300,
+                                    zIndex: 1
                                 }}
                             >
-                                <a
-                                    href = '/covid19messages/#'
+                                <h3>
+                                    Submit Suara
+                                </h3>
+
+                                <input
+                                    autoFocus
+                                    onChange = {this.handleInputChange}
+                                    placeholder = 'Tautan Post Instagram...'
                                     style = {{
-                                        color: 'white',
-                                        textDecorationLine: 'none'
+                                        border: '2px solid gainsboro',
+                                        borderRadius: 7,
+                                        marginTop: 20,
+                                        padding: 10,
+                                        width: 'calc(100% - 20px)'
                                     }}
-                                >
-                                    <p
-                                        style = {{
-                                            fontWeight: 'bold',
-                                            textAlign: 'center'
-                                        }}
-                                    >
-                                        Submit Suara
-                                    </p>
-                                </a>
+                                />
+
+                                {
+                                    !this.state.inputValue.trim().startsWith('https://www.instagram.com/p/') ?
+                                        <div
+                                            href = '/covid19messages/#'
+                                            style = {{
+                                                backgroundColor: 'dimgray',
+                                                borderRadius: 5,
+                                                color: 'white',
+                                                float: 'right',
+                                                fontWeight: 'bold',
+                                                marginTop: 10,
+                                                padding: 10,
+                                            }}
+                                        >
+                                            Submit
+                                        </div>
+                                        :
+                                        <a
+                                            href = '/covid19messages/#'
+                                            onClick = {() => {
+                                                alert('Terima kasih telah submit suara anda untuk kita bersama!')
+                                                
+                                                this.setState({isShowSubmitModal: false})
+                                            }}
+                                            style = {{
+                                                backgroundColor: 'steelblue',
+                                                borderRadius: 5,
+                                                color: 'white',
+                                                float: 'right',
+                                                fontWeight: 'bold',
+                                                marginTop: 10,
+                                                padding: 10,
+                                                textDecorationLine: 'none'
+                                            }}
+                                        >
+                                            Submit
+                                        </a>
+                                }
                             </div>
                         </div>
-                    </div>
-                </div>
+                        :
+                        null
+                }
             </div>
         )
     }
