@@ -10,9 +10,9 @@ melainkan distribusikan kontribusi anda yang sangat kami harapkan ke repositori 
 
 untuk keperluan penyampaian pesan agar lebih terpusat di satu tempat semua Warga Indonesia & Dunia,
 
-saya niatkan inisiatif ini dari KAMI BERSAMA (**WARGA INDONESIA & DUNIA**) untuk **semua Warga Indonesia & Dunia**
+saya niatkan inisiatif ini dari KITA BERSAMA (**WARGA INDONESIA & DUNIA**) untuk **semua Warga Indonesia & Dunia**
 
-#### InsyaAllah Kami Akan Melewati Ini Bersama, Terima Kasih!
+#### InsyaAllah Kita Akan Melewati Ini Bersama, Terima Kasih!
 
 
 
