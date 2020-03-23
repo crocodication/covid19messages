@@ -135,10 +135,17 @@ const MapWithAMarker = compose(
   )
 })
 
-export default class ShelterMap extends React.Component {
+export default class extends React.Component {
     state = {
-        shelters: [],
-        selectedMarker: false
+        selectedMarker: this.props.markers[0]
+    }
+
+    componentDidMount() {
+        const instance = this
+
+        setTimeout(() => {
+            instance.setState({selectedMarker: this.props.markers[this.props.markers.length - 1]})
+        }, 1000)
     }
 
     handleClick = (marker, event) => {
@@ -147,12 +154,22 @@ export default class ShelterMap extends React.Component {
 
     render() {
         return (
-            <MapWithAMarker
-                selectedMarker = {this.state.selectedMarker}
-                markers={this.props.markers}
-                onClick={this.handleClick}
-                onDismissClick = {() => this.setState({selectedMarker: false})}
-            />
+            <div
+                style = {{
+                    position: 'fixed',
+                    top: 0,
+                    right: 0,
+                    left: 0,
+                    bottom: 0
+                }}
+            >
+                <MapWithAMarker
+                    selectedMarker = {this.state.selectedMarker}
+                    markers={this.props.markers}
+                    onClick={this.handleClick}
+                    onDismissClick = {() => this.setState({selectedMarker: false})}
+                />
+            </div>
         )
     }
 }
