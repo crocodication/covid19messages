@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { splitWithDotEachThreeCharacters } from '../helpers/Number'
+
 export default class extends React.Component {
     render() {
         return(
@@ -32,7 +34,7 @@ export default class extends React.Component {
                                 color: 'white'
                             }}
                         >
-                            23756&nbsp;
+                            {splitWithDotEachThreeCharacters(23756)}&nbsp;
                         </h1>
 
                         <h5
