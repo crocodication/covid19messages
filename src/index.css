@@ -4,3 +4,12 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+.maps-container {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.full-screen-height-div {
+    height: 100vh;
+}
