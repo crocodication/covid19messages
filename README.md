@@ -1,5 +1,7 @@
 # Indonesia:
 
+Pesan - pesan dari **semua warga Indonesia & dunia** dapat dilihat disini: https://crocodication.github.io/covid19messages/
+
 Source code dari repository ini dapat dilihat dan di tes di perangkat masing - masing,
 
 mohon jangan gunakan salinan kode ini untuk di deploy ke web sendiri,
@@ -16,6 +18,8 @@ saya niatkan inisiatif ini dari KAMI BERSAMA (**WARGA INDONESIA & DUNIA**) untuk
 
 # English:
 
+Messages from **people in Indonesia & around the world** can be seen here: https://crocodication.github.io/covid19messages/
+
 You can see and test the source code of this repository,
 
 however, don't use the copy of the code in this repository for deployment on your own web page,
@@ -24,6 +28,6 @@ instead distribute your contribution that we are grateful for, in this repositor
 
 the purpose is for delivering messages from around the world in one stop media,
 
-I intend this initiative from US TOGETHER (**PEOPLE IN INDONESIA & THE WORLD**) for all **people in Indonesia & the world**
+I intend this initiative from US TOGETHER (**PEOPLE IN INDONESIA & AROUND THE WORLD**) for all **people in Indonesia & around the world**
 
 #### Thank You!
