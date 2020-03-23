@@ -104,8 +104,10 @@ export default class extends React.Component {
                                         :
                                         <a
                                             href = '/covid19messages/#'
-                                            onClick = {() => {
+                                            onClick = {async() => {
                                                 alert('Terima kasih telah submit suara anda untuk kita bersama!')
+
+                                                await this.setState({inputValue: ''})
                                                 
                                                 this.setState({isShowSubmitModal: false})
                                             }}
