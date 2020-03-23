@@ -20,17 +20,8 @@ class InstagramInfoWindow extends React.Component {
     render() {
         return (
             <div
-                style = {{
-                    height: 'auto',
-                    maxHeight: '100vh',
-                    width: 350,
-                    maxWidth: '100vw'
-                }}
-            >
-                <div
-                    dangerouslySetInnerHTML = {{__html: this.state.content}}
-                />
-            </div>
+                dangerouslySetInnerHTML = {{__html: this.state.content}}
+            />
         )
     }
 }
@@ -43,53 +34,8 @@ const fullScreenHeightDiv = (
     />
 )
 
-// export default compose(
-//     withProps({
-//         /**
-//          * Note: create and replace your own key in the Google console.
-//          * https://console.developers.google.com/apis/dashboard
-//          * The key 'AIzaSyBkNaAGLEVq0YLQMi-PYEMabFeREadYe1Q' can be ONLY used in this sandbox (no forked).
-//          */
-//         googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`,
-//         loadingElement: fullScreenHeightDiv,
-//         containerElement: fullScreenHeightDiv,
-//         mapElement: fullScreenHeightDiv
-//     }),
-//     withScriptjs,
-//     withGoogleMap
-// )(props => (
-//     <GoogleMap
-//         defaultZoom = {5.125}
-//         defaultCenter = {{
-//             lat: -0.6003441,
-//             lng: 119.9029807
-//         }}
-//     >
-//         {props.isMarkerShown && (
-//             <>
-//                 {
-//                     (props.markers || []).map(item => {
-//                         const { lat, lng } = item
-
-//                         return (
-//                             <Marker
-//                                 position = {{lat, lng}}
-//                             />
-//                         )
-//                     })
-//                 }
-//             </>
-//         )}
-//     </GoogleMap>
-// ))
-
 const MapWithAMarker = compose(
     withProps({
-        /**
-         * Note: create and replace your own key in the Google console.
-         * https://console.developers.google.com/apis/dashboard
-         * The key 'AIzaSyBkNaAGLEVq0YLQMi-PYEMabFeREadYe1Q' can be ONLY used in this sandbox (no forked).
-         */
         googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`,
         loadingElement: fullScreenHeightDiv,
         containerElement: fullScreenHeightDiv,
@@ -156,11 +102,8 @@ export default class extends React.Component {
         return (
             <div
                 style = {{
-                    position: 'fixed',
-                    top: 0,
-                    right: 0,
-                    left: 0,
-                    bottom: 0
+                    height: 'calc(100vh-60px)',
+                    overflow: 'hidden'
                 }}
             >
                 <MapWithAMarker
