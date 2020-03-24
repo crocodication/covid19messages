@@ -34,7 +34,7 @@ export default class extends React.Component {
                                 color: 'white'
                             }}
                         >
-                            {splitWithDotEachThreeCharacters(23756)}&nbsp;
+                            {splitWithDotEachThreeCharacters(this.props.totalPerson)}&nbsp;
                         </h1>
 
                         <h5

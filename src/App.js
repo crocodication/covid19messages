@@ -45,6 +45,7 @@ export default class extends React.Component {
                 {
                     !this.state.isShowSubmitModal ?
                         <TopLeftBar
+                            totalPerson = {this.state.markers.length}
                             onPressSubmit = {() => {
                                 this.setState({
                                     isShowSubmitModal: true,
@@ -161,8 +162,6 @@ export default class extends React.Component {
                                                     })
                                                     .then(async(res) => {
                                                         if(res.ok) {
-                                                            const json = await res.json()
-    
                                                             alert('Terima kasih telah submit suara anda untuk kita bersama!')
     
                                                             this.lastPostedPost = this.state.inputValue
