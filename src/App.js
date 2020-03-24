@@ -153,6 +153,8 @@ export default class extends React.Component {
                                                 }
 
                                                 if(isDuplicate) {
+                                                    alert('Maaf link yang anda berikan sudah terdaftar')
+                                                    
                                                     return
                                                 } else {
                                                     api.create({
