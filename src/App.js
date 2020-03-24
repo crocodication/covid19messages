@@ -161,7 +161,7 @@ export default class extends React.Component {
                                 />
 
                                 {
-                                    !this.state.inputValue.trim().startsWith('https://www.instagram.com/p/') || this.state.isSubmitting ?
+                                    !this.state.inputValue.trim().startsWith('https://www.instagram.com/tv/') || !this.state.inputValue.trim().startsWith('https://www.instagram.com/p/') || this.state.isSubmitting ?
                                         <div
                                             href = '/covid19messages/#'
                                             style = {{
