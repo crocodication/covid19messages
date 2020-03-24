@@ -154,7 +154,7 @@ export default class extends React.Component {
 
                                                 if(isDuplicate) {
                                                     alert('Maaf link yang anda berikan sudah terdaftar')
-                                                    
+
                                                     return
                                                 } else {
                                                     api.create({
@@ -225,22 +225,28 @@ export default class extends React.Component {
             if(res.ok) {
                 const json = await res.json()
 
+                await this.setState({markers: json.data})
+
                 for(const data of json.data) {
                     if(data.instagram_post_url === this.lastPostedPost) {
-                        this.setState({selectedMarker: data})
+                        await this.setState({selectedMarker: data})
 
                         break
                     }
                 }
-
-                this.setState({markers: json.data})
             } else {
                 const text = await res.text()
 
                 alert(text)
             }
 
-            this.lastPostedPost = ''
+            if(this.lastPostedPost !== '') {
+                this.lastPostedPost = ''
+            } else {
+                if(this.state.markers.length > 0) {
+                    this.setState({selectedMarker: this.state.markers[this.state.markers.length - 1]})
+                }
+            }
         })
         .catch(err => {
             alert(err.toString())
