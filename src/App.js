@@ -32,7 +32,9 @@ export default class extends React.Component {
                 <TopLeftBar
                     onPressSubmit = {() => {
                         navigator.geolocation.getCurrentPosition((position) => {
-                            alert(`lat=${position.coords.latitude}&lng=${position.coords.longitude}`)
+                            setTimeout(() => {
+                                alert(`lat=${position.coords.latitude}&lng=${position.coords.longitude}`)
+                            }, 500)
 
                             this.setState({isShowSubmitModal: true})
                         })
