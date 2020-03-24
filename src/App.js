@@ -10,8 +10,12 @@ export default class extends React.Component {
     state = {
         inputValue: '',
         isShowSubmitModal: false,
-        isSubmitting: false
+        isSubmitting: false,
+        selectedMarker: false
     }
+
+    lat = 0
+    lng = 0
 
     handleInputChange = (event) => this.setState({inputValue: event.target.value})
 
@@ -27,16 +31,27 @@ export default class extends React.Component {
                 <GoogleMaps
                     isMarkerShown
                     markers = {markers}
+                    selectedMarker = {this.state.selectedMarker}
+                    setSelectedMarker = {selectedMarker => this.setState({selectedMarker})}
+                    updateCenterCoord = {this.updateCenterCoord}
                 />
                 
-                <TopLeftBar
-                    onPressSubmit = {() => {
-                        this.setState({isShowSubmitModal: true})
-                    }}
-                />
+                {
+                    !this.state.isShowSubmitModal ?
+                        <TopLeftBar
+                            onPressSubmit = {() => {
+                                this.setState({
+                                    isShowSubmitModal: true,
+                                    selectedMarker: false
+                                })
+                            }}
+                        />
+                        :
+                        null
+                }
 
                 {
-                    this.state.isShowSubmitModal ?
+                    false ? //this.state.isShowSubmitModal ?
                         <div
                             style = {{
                                 alignItems: 'center',
@@ -61,6 +76,24 @@ export default class extends React.Component {
                                 }}
                             />
 
+                            
+                        </div>
+                        :
+                        null
+                }
+
+                {
+                    this.state.isShowSubmitModal ?
+                        <div
+                            style = {{
+                                alignItems: 'center',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                position: 'fixed',
+                                top: 'calc(50% - 255px)',
+                                left: 'calc(50% - 170px)'
+                            }}
+                        >
                             <div
                                 style = {{
                                     backgroundColor: 'white',
@@ -70,12 +103,41 @@ export default class extends React.Component {
                                     zIndex: 1
                                 }}
                             >
-                                <h3>
-                                    Submit Suara
-                                </h3>
+                                <div
+                                    style = {{
+                                        alignItems: 'center',
+                                        display: 'flex',
+                                        justifyContent: 'space-between'
+                                    }}
+                                >
+                                    <h3>
+                                        Submit Suara
+                                    </h3>
+
+                                    <a
+                                        href = '/covid19messages/#'
+                                        onClick = {() => this.setState({isShowSubmitModal: false})}
+                                        style = {{
+                                            color: 'red',
+                                            fontSize: 20,
+                                            fontWeight: 'bold',
+                                            textDecorationLine: 'none'
+                                        }}
+                                    >
+                                        X
+                                    </a>
+                                </div>
+
+                                <p
+                                    style = {{
+                                        fontSize: 12,
+                                        marginTop: 10
+                                    }}
+                                >
+                                    Geser peta sesuai lokasi anda dan salin tautan pos instagram
+                                </p>
 
                                 <input
-                                    autoFocus
                                     onChange = {this.handleInputChange}
                                     placeholder = 'Tautan Post Instagram...'
                                     style = {{
@@ -128,11 +190,30 @@ export default class extends React.Component {
                                         </a>
                                 }
                             </div>
+
+                            <img
+                                alt = 'my-marker'
+                                height = {32}
+                                width = {32}
+                                src = {require('./icons/mark.png')}
+                                onClick = {() => alert('a')}
+                                style = {{
+                                    marginTop: 20,
+                                    pointerEvents: 'none'
+                                }}
+                            />
                         </div>
                         :
                         null
                 }
             </div>
         )
+    }
+
+    updateCenterCoord = (lat, lng) => {
+        this.lat = lat
+        this.lng = lng
+
+        console.log(`lat: ${this.lat}, lng: ${this.lng}`)
     }
 }

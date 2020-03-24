@@ -29,10 +29,9 @@ class GoogleMapWrapper extends React.Component {
                 }}
                 ref = {ref => this.maps = ref}
                 onCenterChanged = {() => {
-                    let coord = this.maps.getCenter()
+                    const coord = this.maps.getCenter()
 
-                    this.lat = coord.lat()
-                    this.lng = coord.lng()
+                    this.props.updateCenterCoord(coord.lat(), coord.lng())
                 }}
                 onClick = {props.onDismissClick}
             >

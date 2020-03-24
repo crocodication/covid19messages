@@ -3,20 +3,18 @@ import React from 'react'
 import MapsWithMarkers from './MapsWithMarkers'
 
 export default class extends React.Component {
-    state = {
-        selectedMarker: this.props.markers[0]
-    }
-
     componentDidMount() {
         const { props } = this
         const { markers } = props
 
+        props.setSelectedMarker(this.props.markers[0])
+
         const selectedMarker = markers[markers.length - 1]
 
-        setTimeout(() => this.setState({selectedMarker}), 1000)
+        setTimeout(() => props.setSelectedMarker(selectedMarker), 1000)
     }
 
-    handleClick = (selectedMarker, event) => this.setState({selectedMarker})
+    handleClick = (selectedMarker, event) => this.props.setSelectedMarker(selectedMarker)
 
     render() {
         return (
@@ -26,8 +24,9 @@ export default class extends React.Component {
                 <MapsWithMarkers
                     markers = {this.props.markers}
                     onClick = {this.handleClick}
-                    onDismissClick = {() => this.setState({selectedMarker: false})}
-                    selectedMarker = {this.state.selectedMarker}
+                    onDismissClick = {() => this.props.setSelectedMarker(false)}
+                    selectedMarker = {this.props.selectedMarker}
+                    updateCenterCoord = {this.props.updateCenterCoord}
                 />
             </div>
         )
