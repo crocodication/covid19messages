@@ -2,6 +2,10 @@ import React from 'react'
 
 import ReactLoading from 'react-loading'
 
+import moment from 'moment'
+
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
+
 import GoogleMaps from './components/GoogleMaps'
 
 import TopLeftBar from './components/TopLeftBar'
@@ -226,6 +230,36 @@ export default class extends React.Component {
                         :
                         null
                 }
+
+                <div
+                    className = 'chart-container'
+                    style = {{
+                        backgroundColor: 'rgba(255,255,255,0.75)',
+                        left: 'calc(50% - 200px)',
+                        bottom: 30,
+                        width: 400,
+                        height: 200,
+                        position: 'fixed',
+                        paddingTop: 20,
+                        paddingBottom: 20
+                    }}
+                >
+                    <LineChart
+                        width={400}
+                        height={200}
+                        data = {this.getData()}
+                        margin={{
+                            top: 5, right: 30, left: 20, bottom: 5,
+                        }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Line type="monotone" dataKey="total messages over time" stroke="#8884d8" activeDot={{ r: 8 }} />
+                    </LineChart>
+                </div>
             </div>
         )
     }
@@ -273,5 +307,39 @@ export default class extends React.Component {
     updateCenterCoord = (lat, lng) => {
         this.lat = lat
         this.lng = lng
+    }
+
+    getData() {
+        let dates = []
+
+        let date = new Date()
+
+        for(let i = 0; i < 14; i++) {
+            date = new Date()
+            date.setDate(date.getDate() - i)
+            date.setHours(0, 0, 0)
+
+            let totalMessagesOverTime = 0
+
+            let tommorrowDate = new Date(date.toDateString())
+            tommorrowDate.setDate(tommorrowDate.getDate() + 1)
+            tommorrowDate.setHours(0, 0, 0)
+
+            for(const marker of this.state.markers) {
+                if(moment(marker.created_at).toDate() < tommorrowDate) {
+                    totalMessagesOverTime++
+                }
+            }
+
+            dates.push({
+                date,
+                "total messages over time": totalMessagesOverTime,
+                name: moment(date).format('DD/MM')
+            })
+        }
+
+        dates.reverse()
+
+        return dates.slice(Math.max(dates.length - 14, 0))
     }
 }

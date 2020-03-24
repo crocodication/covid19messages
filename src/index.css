@@ -45,3 +45,13 @@ input {
 .full-screen-height-div {
     height: 100vh;
 }
+
+.chart-container {
+    display: none;
+}
+
+@media only screen and (min-width: 480px) and (min-height: 820px) {
+    .chart-container {
+        display: block;
+    }
+}
