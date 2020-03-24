@@ -30,7 +30,13 @@ export default class extends React.Component {
                 />
                 
                 <TopLeftBar
-                    onPressSubmit = {() => this.setState({isShowSubmitModal: true})}
+                    onPressSubmit = {() => {
+                        navigator.geolocation.getCurrentPosition((position) => {
+                            alert(`lat=${position.coords.latitude}&lng=${position.coords.longitude}`)
+
+                            this.setState({isShowSubmitModal: true})
+                        })
+                    }}
                 />
 
                 {
