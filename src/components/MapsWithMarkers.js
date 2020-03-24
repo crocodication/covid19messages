@@ -39,19 +39,19 @@ class GoogleMapWrapper extends React.Component {
                     props.markers.map(marker => {
                         const onClick = props.onClick.bind(this, marker)
 
-                        const {lat, lng, content} = marker
+                        const {latitude, longitude, instagram_post_url} = marker
                 
                         return (
                             <Marker
                                 key = {JSON.stringify(marker)}
                                 onClick = {onClick}
-                                position = {{lat, lng}}
+                                position = {{lat: parseFloat(latitude), lng: parseFloat(longitude)}}
                             >
                                 {
                                     props.selectedMarker === marker &&
                                         <InfoWindow>
                                             <InstagramInfoWindow
-                                                content = {content}
+                                                content = {instagram_post_url}
                                             />
                                         </InfoWindow>
                                 }

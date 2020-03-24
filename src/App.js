@@ -2,22 +2,28 @@ import React from 'react'
 
 import GoogleMaps from './components/GoogleMaps'
 
-import { markers } from './refs/sampleDatas'
-
 import TopLeftBar from './components/TopLeftBar'
+import api from './refs/api'
 
 export default class extends React.Component {
     state = {
         inputValue: '',
         isShowSubmitModal: false,
         isSubmitting: false,
+        markers: [],
         selectedMarker: false
     }
 
-    lat = 0
-    lng = 0
+    lastPostedPost = ''
+
+    lat = -0.6003441
+    lng = 119.9029807
 
     handleInputChange = (event) => this.setState({inputValue: event.target.value})
+
+    componentDidMount() {
+        this.loadData()
+    }
 
     render() {
         return (
@@ -30,7 +36,7 @@ export default class extends React.Component {
             >
                 <GoogleMaps
                     isMarkerShown
-                    markers = {markers}
+                    markers = {this.state.markers}
                     selectedMarker = {this.state.selectedMarker}
                     setSelectedMarker = {selectedMarker => this.setState({selectedMarker})}
                     updateCenterCoord = {this.updateCenterCoord}
@@ -46,38 +52,6 @@ export default class extends React.Component {
                                 })
                             }}
                         />
-                        :
-                        null
-                }
-
-                {
-                    false ? //this.state.isShowSubmitModal ?
-                        <div
-                            style = {{
-                                alignItems: 'center',
-                                bottom: 0,
-                                left: 0,
-                                display: 'flex',
-                                justifyContent: 'center',
-                                position: 'fixed',
-                                right: 0,
-                                top: 0
-                            }}
-                        >
-                            <div
-                                onClick = {() => this.setState({isShowSubmitModal: false})}
-                                style = {{
-                                    backgroundColor: 'rgba(0,0,0,0.8)',
-                                    bottom: 0,
-                                    left: 0,
-                                    position: 'absolute',
-                                    right: 0,
-                                    top: 0
-                                }}
-                            />
-
-                            
-                        </div>
                         :
                         null
                 }
@@ -134,7 +108,7 @@ export default class extends React.Component {
                                         marginTop: 10
                                     }}
                                 >
-                                    Geser peta sesuai lokasi anda dan salin tautan pos instagram
+                                    Geser peta sesuai lokasi anda, pastikan zoom ke titik yang benar lalu salin tautan pos instagram
                                 </p>
 
                                 <input
@@ -168,12 +142,46 @@ export default class extends React.Component {
                                         :
                                         <a
                                             href = '/covid19messages/#'
-                                            onClick = {async() => {
-                                                alert('Terima kasih telah submit suara anda untuk kita bersama!')
+                                            onClick = {() => {
+                                                let isDuplicate = false
 
-                                                await this.setState({inputValue: ''})
-                                                
-                                                this.setState({isShowSubmitModal: false})
+                                                for(const marker of this.state.markers) {
+                                                    if(marker.instagram_post_url.toLowerCase() === this.state.inputValue.trim().toLowerCase()) {
+                                                        isDuplicate = true
+                                                    }
+                                                }
+
+                                                if(isDuplicate) {
+                                                    return
+                                                } else {
+                                                    api.create({
+                                                        latitude: this.lat.toString(),
+                                                        longitude: this.lng.toString(),
+                                                        instagram_post_url: this.state.inputValue.trim()
+                                                    })
+                                                    .then(async(res) => {
+                                                        if(res.ok) {
+                                                            const json = await res.json()
+    
+                                                            alert('Terima kasih telah submit suara anda untuk kita bersama!')
+    
+                                                            this.lastPostedPost = this.state.inputValue
+    
+                                                            await this.setState({inputValue: ''})
+                                                    
+                                                            await this.setState({isShowSubmitModal: false})
+    
+                                                            this.loadData()
+                                                        } else {
+                                                            const text = await res.text()
+    
+                                                            alert(text)
+                                                        }
+                                                    })
+                                                    .catch(err => {
+                                                        alert(err.toString())
+                                                    })
+                                                }
                                             }}
                                             style = {{
                                                 backgroundColor: 'steelblue',
@@ -210,10 +218,38 @@ export default class extends React.Component {
         )
     }
 
+    loadData() {
+        api.list()
+        .then(async(res) => {
+            if(res.ok) {
+                const json = await res.json()
+
+                for(const data of json.data) {
+                    if(data.instagram_post_url === this.lastPostedPost) {
+                        this.setState({selectedMarker: data})
+
+                        break
+                    }
+                }
+
+                this.setState({markers: json.data})
+            } else {
+                const text = await res.text()
+
+                alert(text)
+            }
+
+            this.lastPostedPost = ''
+        })
+        .catch(err => {
+            alert(err.toString())
+
+            this.lastPostedPost = ''
+        })
+    }
+
     updateCenterCoord = (lat, lng) => {
         this.lat = lat
         this.lng = lng
-
-        console.log(`lat: ${this.lat}, lng: ${this.lng}`)
     }
 }
