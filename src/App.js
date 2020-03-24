@@ -161,27 +161,7 @@ export default class extends React.Component {
                                 />
 
                                 {
-                                    !this.state.inputValue.trim().startsWith('https://www.instagram.com/tv/') || !this.state.inputValue.trim().startsWith('https://www.instagram.com/p/') || this.state.isSubmitting ?
-                                        <div
-                                            href = '/covid19messages/#'
-                                            style = {{
-                                                backgroundColor: 'dimgray',
-                                                borderRadius: 5,
-                                                color: 'white',
-                                                float: 'right',
-                                                fontWeight: 'bold',
-                                                marginTop: 10,
-                                                padding: 10,
-                                            }}
-                                        >
-                                            {
-                                                this.state.isSubmitting ?
-                                                    <ReactLoading type= 'spinningBubbles' color='white' height={20} width={20} />
-                                                    :
-                                                    'Submit'
-                                            }
-                                        </div>
-                                        :
+                                    (this.state.inputValue.trim().startsWith('https://www.instagram.com/tv/') || this.state.inputValue.trim().startsWith('https://www.instagram.com/p/')) && !this.state.isSubmitting ?
                                         <a
                                             href = '/covid19messages/#'
                                             onClick = {() => {
@@ -242,6 +222,26 @@ export default class extends React.Component {
                                         >
                                             Submit
                                         </a>
+                                        :
+                                        <div
+                                            href = '/covid19messages/#'
+                                            style = {{
+                                                backgroundColor: 'dimgray',
+                                                borderRadius: 5,
+                                                color: 'white',
+                                                float: 'right',
+                                                fontWeight: 'bold',
+                                                marginTop: 10,
+                                                padding: 10,
+                                            }}
+                                        >
+                                            {
+                                                this.state.isSubmitting ?
+                                                    <ReactLoading type= 'spinningBubbles' color='white' height={20} width={20} />
+                                                    :
+                                                    'Submit'
+                                            }
+                                        </div>
                                 }
                             </div>
 

@@ -18,7 +18,7 @@ export default class extends React.Component {
                         marginTop: 10
                     }}
                 >
-                    #{this.props.id - 14}
+                    #{this.props.id - 15}
                 </h2>
 
                 <InstagramEmbed
