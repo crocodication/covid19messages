@@ -63,6 +63,36 @@ export default class extends React.Component {
                         null
                 }
 
+                <div
+                    className = 'chart-container'
+                    style = {{
+                        backgroundColor: 'rgba(255,255,255,0.75)',
+                        left: 'calc(50% - 200px)',
+                        bottom: 30,
+                        width: 400,
+                        height: 200,
+                        position: 'fixed',
+                        paddingTop: 20,
+                        paddingBottom: 20
+                    }}
+                >
+                    <LineChart
+                        width={400}
+                        height={200}
+                        data = {this.getData()}
+                        margin={{
+                            top: 5, right: 30, left: 20, bottom: 5,
+                        }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Line type="monotone" dataKey="total messages over time" stroke="#8884d8" activeDot={{ r: 8 }} />
+                    </LineChart>
+                </div>
+
                 {
                     this.state.isShowSubmitModal ?
                         <div
@@ -230,36 +260,6 @@ export default class extends React.Component {
                         :
                         null
                 }
-
-                <div
-                    className = 'chart-container'
-                    style = {{
-                        backgroundColor: 'rgba(255,255,255,0.75)',
-                        left: 'calc(50% - 200px)',
-                        bottom: 30,
-                        width: 400,
-                        height: 200,
-                        position: 'fixed',
-                        paddingTop: 20,
-                        paddingBottom: 20
-                    }}
-                >
-                    <LineChart
-                        width={400}
-                        height={200}
-                        data = {this.getData()}
-                        margin={{
-                            top: 5, right: 30, left: 20, bottom: 5,
-                        }}
-                    >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Line type="monotone" dataKey="total messages over time" stroke="#8884d8" activeDot={{ r: 8 }} />
-                    </LineChart>
-                </div>
             </div>
         )
     }
