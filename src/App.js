@@ -1,5 +1,7 @@
 import React from 'react'
 
+import ReactLoading from 'react-loading'
+
 import GoogleMaps from './components/GoogleMaps'
 
 import TopLeftBar from './components/TopLeftBar'
@@ -125,7 +127,7 @@ export default class extends React.Component {
                                 />
 
                                 {
-                                    !this.state.inputValue.trim().startsWith('https://www.instagram.com/p/') ?
+                                    !this.state.inputValue.trim().startsWith('https://www.instagram.com/p/') || this.state.isSubmitting ?
                                         <div
                                             href = '/covid19messages/#'
                                             style = {{
@@ -138,7 +140,12 @@ export default class extends React.Component {
                                                 padding: 10,
                                             }}
                                         >
-                                            Submit
+                                            {
+                                                this.state.isSubmitting ?
+                                                    <ReactLoading type= 'spinningBubbles' color='white' height={20} width={20} />
+                                                    :
+                                                    'Submit'
+                                            }
                                         </div>
                                         :
                                         <a
@@ -157,15 +164,17 @@ export default class extends React.Component {
 
                                                     return
                                                 } else {
+                                                    this.setState({isSubmitting: true})
+
                                                     api.create({
                                                         latitude: this.lat.toString(),
                                                         longitude: this.lng.toString(),
                                                         instagram_post_url: this.state.inputValue.trim()
                                                     })
                                                     .then(async(res) => {
+                                                        this.setState({isSubmitting: false})
+
                                                         if(res.ok) {
-                                                            alert('Terima kasih telah submit suara anda untuk kita bersama!')
-    
                                                             this.lastPostedPost = this.state.inputValue
     
                                                             await this.setState({inputValue: ''})
@@ -180,6 +189,8 @@ export default class extends React.Component {
                                                         }
                                                     })
                                                     .catch(err => {
+                                                        this.setState({isSubmitting: false})
+
                                                         alert(err.toString())
                                                     })
                                                 }
@@ -241,6 +252,10 @@ export default class extends React.Component {
             }
 
             if(this.lastPostedPost !== '') {
+                setTimeout(() => {
+                    alert('Terima kasih telah submit suara anda untuk kita bersama!')
+                }, 500)
+
                 this.lastPostedPost = ''
             } else {
                 if(this.state.markers.length > 0) {

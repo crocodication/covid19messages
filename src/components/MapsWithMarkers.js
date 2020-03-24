@@ -49,9 +49,12 @@ class GoogleMapWrapper extends React.Component {
                             >
                                 {
                                     props.selectedMarker === marker &&
-                                        <InfoWindow>
+                                        <InfoWindow
+                                            onCloseClick = {props.onDismissClick}
+                                        >
                                             <InstagramInfoWindow
                                                 content = {instagram_post_url}
+                                                id = {marker.id}
                                             />
                                         </InfoWindow>
                                 }
